@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <div className="container mx-auto min-h-screen px-10">{children}</div>
+        <div className="container mx-auto pt-12 pb-20 px-10">{children}</div>
         <Footer />
       </body>
     </html>

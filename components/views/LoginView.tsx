@@ -1,3 +1,9 @@
+import LoginForm from "../pages/login";
+
 export default function LoginView() {
-  return <main>LoginView</main>;
+  return (
+    <main>
+      <LoginForm />
+    </main>
+  );
 }

@@ -1,3 +1,9 @@
+import RegisterForm from "../pages/register";
+
 export default function RegisterView() {
-  return <main>RegisterView</main>;
+  return (
+    <main>
+      <RegisterForm />
+    </main>
+  );
 }
