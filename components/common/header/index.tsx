@@ -11,7 +11,7 @@ export default function Header() {
       <div className="py-10 flex justify-between">
         <div></div>
 
-        <nav className="">
+        <nav>
           <ul className="flex flex-row gap-4">
             <li>
               <Link
@@ -47,6 +47,18 @@ export default function Header() {
                 } py-2 px-4 rounded-md`}
               >
                 Quiz
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/settings"
+                className={`${
+                  pathname === "/settings"
+                    ? "text-white bg-neutral-500/30"
+                    : "text-neutral-300 hover:text-white hover:bg-neutral-500/25 transition-colors duration-300"
+                } py-2 px-4 rounded-md`}
+              >
+                Settings
               </Link>
             </li>
           </ul>

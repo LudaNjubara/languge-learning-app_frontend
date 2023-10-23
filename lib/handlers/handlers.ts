@@ -44,5 +44,40 @@ const handleLogin = async (formData: TLoginFormData) => {
 
 const handleLogout = () => { }
 
-export { handleLogin, handleLogout, handleRegister }
+const handleLanguageSettingChange = (formData: FormData) => {
+    const languageCode = formData.get("languageCode") as string;
+
+
+    fetch(`${API_URL}/user/update-selected-language`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${cookies().get("token")?.value}`,
+        },
+        body: JSON.stringify({
+            username: "someone1",
+            languageCode,
+        }),
+    }).catch((error) => {
+        console.log(error);
+    });
+};
+
+const fetchUserQuizHistory = async () => {
+    const response = await fetch(`${API_URL}/user/quiz-history`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${cookies().get("token")?.value}`,
+        },
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch the user's quiz history");
+
+    const data = await response.json();
+
+    return data as string[]; // // TODO: replace with TQuizHistory or something
+}
+
+
+export { fetchUserQuizHistory, handleLanguageSettingChange, handleLogin, handleLogout, handleRegister }
 

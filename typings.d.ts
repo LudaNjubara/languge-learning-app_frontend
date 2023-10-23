@@ -1,3 +1,10 @@
+import { TLearningLanguage } from "./components/pages/settings";
+
+type TUserData = {
+    username?: string;
+    selectedLanguage?: TLearningLanguage;
+}
+
 type TRegisterFormData = {
     username: string;
     password: string;
@@ -87,5 +94,5 @@ type TDictionaryApiResponse = {
 
 
 
-export { TDictionaryApiResponse, TDictionaryWord, TLanguage, TLanguageApiResponse, TLoginFormData, TRegisterFormData };
+export { TDictionaryApiResponse, TDictionaryWord, TLanguage, TLanguageApiResponse, TLoginFormData, TRegisterFormData, TUserData };
 

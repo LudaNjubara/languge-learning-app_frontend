@@ -21,5 +21,11 @@ const lexicalaHeaders = {
     'Accept-Encoding': 'application/json'
 } as const
 
-export { API_URL, FREE_DICTIONARY_API_URL, GOOGLE_TRANSLATE_API_URL, LEXICALA_API_URL, RANDOM_WORD_API_URL, googleTranslateHeaders, lexicalaHeaders };
+const ALLOWED_URLS = [
+    "/login",
+    "/register",
+    "/",
+];
+
+export { ALLOWED_URLS, API_URL, FREE_DICTIONARY_API_URL, GOOGLE_TRANSLATE_API_URL, LEXICALA_API_URL, RANDOM_WORD_API_URL, googleTranslateHeaders, lexicalaHeaders };
 

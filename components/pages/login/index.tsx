@@ -3,6 +3,7 @@
 import { handleLogin } from "@/lib/handlers/handlers";
 import { TLoginFormData } from "@/typings";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function validateFormData(formData: TLoginFormData): TLoginFormErrors {
@@ -24,6 +25,7 @@ type TLoginFormErrors = {
 };
 
 export default function LoginForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<TLoginFormData>({
     username: "",
     password: "",
@@ -51,6 +53,7 @@ export default function LoginForm() {
     try {
       setIsLoading(true);
       const userData = await handleLogin(formData);
+      router.push("/quiz");
       console.log(userData);
     } catch (error) {
       console.log(error);
