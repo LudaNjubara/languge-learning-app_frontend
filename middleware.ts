@@ -13,9 +13,8 @@ export function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL('/login', request.url))
         }
     } else {
-        if (token && url.pathname === "/login") {
+        if (token && (url.pathname === "/login" || url.pathname === "/register")) {
             const referer = request.headers.get("referer");
-            console.log("referer", referer);
 
             return NextResponse.redirect(new URL(referer || "/", request.url));
 
