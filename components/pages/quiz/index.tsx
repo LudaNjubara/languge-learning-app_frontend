@@ -1,5 +1,6 @@
 "use client";
 
+import { useSettingsStore } from "@/lib/store/SettingsStore";
 import { TUserData } from "@/typings";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
@@ -11,10 +12,12 @@ type TQuizWrapperProps = {
 };
 
 export default function QuizWrapper({ userData }: TQuizWrapperProps) {
+  const setLearningLanguage = useSettingsStore((state) => state.setLearningLanguage);
+  setLearningLanguage(userData.selectedLanguage);
   const [selectedScreen, setSelectedScreen] = useState<"new_quiz" | "quiz_history" | undefined>();
 
   return (
-    <div className="mt-12">
+    <div className="mt-12 mx-auto w-full max-w-6xl">
       <div
         className={`flex items-center gap-2 py-3 ${selectedScreen ? "animate-fade-in visible" : "invisible"}`}
       >
@@ -48,9 +51,9 @@ export default function QuizWrapper({ userData }: TQuizWrapperProps) {
         </div>
       )}
 
-      {selectedScreen === "new_quiz" && <NewQuiz userData={userData} />}
+      {selectedScreen === "new_quiz" && <NewQuiz />}
 
-      {selectedScreen === "quiz_history" && <QuizHistory userData={userData} />}
+      {selectedScreen === "quiz_history" && <QuizHistory />}
     </div>
   );
 }

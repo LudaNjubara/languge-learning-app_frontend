@@ -1,12 +1,7 @@
 import { fetchUserQuizHistory } from "@/lib/handlers/handlers";
-import { TUserData } from "@/typings";
 import { useEffect, useState } from "react";
 
-type TQuizHistoryProps = {
-  userData: TUserData;
-};
-
-export default function QuizHistory({ userData }: TQuizHistoryProps) {
+export default function QuizHistory() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +32,7 @@ export default function QuizHistory({ userData }: TQuizHistoryProps) {
         <p className="text-lg mt-1 text-neutral-400/80 font-light">See your past quiz scores.</p>
       </div>
 
-      <main>
+      <div>
         {loading && <div>Loading...</div>}
 
         {error && <div>Error: {error}</div>}
@@ -47,7 +42,7 @@ export default function QuizHistory({ userData }: TQuizHistoryProps) {
             <div key={quiz}>{quiz}</div>
           ))}
         </>
-      </main>
+      </div>
     </div>
   );
 }

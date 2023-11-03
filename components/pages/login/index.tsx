@@ -54,7 +54,6 @@ export default function LoginForm() {
       setIsLoading(true);
       const userData = await handleLogin(formData);
       router.push("/quiz");
-      console.log(userData);
     } catch (error) {
       console.log(error);
     } finally {

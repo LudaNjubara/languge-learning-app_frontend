@@ -40,6 +40,7 @@ type TLanguage = {
     code: string;
 }
 
+// Dictionary API
 type TDictionaryWordSenseExample = {
     text: string
     translations: TDictionaryWordSenseTranslation[]
@@ -92,7 +93,31 @@ type TDictionaryApiResponse = {
     results: TDictionaryWord[]
 };
 
+// Google Translate API
+type TGoogleTranlateTranslation = {
+    translatedText: string
+}
 
+type TGoogleTranslateApiResponse = {
+    data: {
+        translations: TGoogleTranlateTranslation[]
+    }
+}
 
-export { TDictionaryApiResponse, TDictionaryWord, TLanguage, TLanguageApiResponse, TLoginFormData, TRegisterFormData, TUserData };
+// Quiz
+type TQuizCategory = {
+    translation: boolean;
+    multiple_choice: boolean;
+    insert_missing: boolean;
+};
+
+type TQuizData = {
+    [word: string]: {
+        quizQuestionCategory: keyof TQuizCategory;
+        quizQuestion: string | undefined;
+        quizAnswers: string[] | undefined;
+    };
+};
+
+export { TDictionaryApiResponse, TDictionaryWord, TGoogleTranlateTranslation, TGoogleTranslateApiResponse, TLanguage, TLanguageApiResponse, TLoginFormData, TQuizCategory, TQuizData, TRegisterFormData, TUserData };
 

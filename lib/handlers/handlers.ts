@@ -44,7 +44,9 @@ const handleLogin = async (formData: TLoginFormData) => {
 
 const handleLogout = () => { }
 
-const handleLanguageSettingChange = (formData: FormData) => {
+const handleLanguageSettingChange = (formData: FormData, username: string | null) => {
+    if (!username) return;
+
     const languageCode = formData.get("languageCode") as string;
 
 
@@ -55,7 +57,7 @@ const handleLanguageSettingChange = (formData: FormData) => {
             "Authorization": `Bearer ${cookies().get("token")?.value}`,
         },
         body: JSON.stringify({
-            username: "someone1",
+            username,
             languageCode,
         }),
     }).catch((error) => {

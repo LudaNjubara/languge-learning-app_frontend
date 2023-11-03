@@ -11,14 +11,13 @@ const LEXICALA_API_URL = "https://lexicala1.p.rapidapi.com";
 const googleTranslateHeaders = {
     'content-type': 'application/x-www-form-urlencoded',
     'Accept-Encoding': 'application/gzip',
-    'X-RapidAPI-Key': process.env.X_RAPIDAPI_KEY,
+    'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY!,
     'X-RapidAPI-Host': "google-translate1.p.rapidapi.com"
-}
+} as const
 
 const lexicalaHeaders = {
     'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY!,
     'X-RapidAPI-Host': "lexicala1.p.rapidapi.com",
-    'Accept-Encoding': 'application/json'
 } as const
 
 const ALLOWED_URLS = [

@@ -3,6 +3,7 @@
 import { handleRegister } from "@/lib/handlers/handlers";
 import { TRegisterFormData } from "@/typings";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function validateFormData(formData: TRegisterFormData): TRegisterFormErrors {
@@ -24,6 +25,7 @@ type TRegisterFormErrors = {
 };
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<TRegisterFormData>({
     username: "",
     password: "",
@@ -51,7 +53,7 @@ export default function RegisterForm() {
     try {
       setIsLoading(true);
       const userData = await handleRegister(formData);
-      console.log(userData);
+      router.push("/quiz");
     } catch (error) {
       console.log(error);
     } finally {

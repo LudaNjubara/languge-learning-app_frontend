@@ -50,6 +50,8 @@ export default function SettingsForm({ data, userData }: TSettingsFormProps) {
   useSettingsStore((state) => state.setUsername)(userData?.username);
   useSettingsStore((state) => state.setLearningLanguage)(userData?.selectedLanguage);
 
+  const username = useSettingsStore((state) => state.username);
+
   const settingsItems: TSettingsItem[] = useMemo(
     () => [
       {
@@ -65,7 +67,7 @@ export default function SettingsForm({ data, userData }: TSettingsFormProps) {
   return (
     <div className="flex flex-col items-center justify-center">
       <form
-        action={(e) => handleLanguageSettingChange(e)}
+        action={(e) => handleLanguageSettingChange(e, username)}
         className="flex flex-col gap-4 max-w-5xl mx-auto bg-neutral-950 rounded-lg p-8 mt-6"
       >
         {settingsItems.map((item) => (
