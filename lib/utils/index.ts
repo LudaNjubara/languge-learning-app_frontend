@@ -12,9 +12,8 @@ const fetchAllLanguages = async (): Promise<TLanguageApiResponse> => {
         headers: lexicalaHeaders,
     })
 
-    if (!res.ok) {
-        throw new Error(res.statusText)
-    }
+    if (!res.ok) throw new Error(res.statusText)
+
 
     return res.json()
 }

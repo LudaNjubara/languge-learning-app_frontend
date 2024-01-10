@@ -1,4 +1,4 @@
-import { fetchUserQuizHistory } from "@/lib/handlers/handlers";
+import { fetchUserQuizHistory } from "@/lib/fetchers/fetchers";
 import { useEffect, useState } from "react";
 
 export default function QuizHistory() {

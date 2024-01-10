@@ -65,21 +65,23 @@ const handleLanguageSettingChange = (formData: FormData, username: string | null
     });
 };
 
-const fetchUserQuizHistory = async () => {
-    const response = await fetch(`${API_URL}/user/quiz-history`, {
-        method: "GET",
+type TCreateQuizFormData = {
+    question: string;
+    answers: string[];
+    languageCode: string;
+};
+
+const handleCreateQuiz = async (formData: TCreateQuizFormData) => {
+    return fetch(`${API_URL}/quiz/create`, {
+        method: "POST",
         headers: {
-            Authorization: `Bearer ${cookies().get("token")?.value}`,
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${cookies().get("token")?.value}`,
         },
-    });
-
-    if (!response.ok) throw new Error("Failed to fetch the user's quiz history");
-
-    const data = await response.json();
-
-    return data as string[]; // // TODO: replace with TQuizHistory or something
+        body: JSON.stringify(formData),
+    })
 }
 
 
-export { fetchUserQuizHistory, handleLanguageSettingChange, handleLogin, handleLogout, handleRegister }
+export { handleCreateQuiz, handleLanguageSettingChange, handleLogin, handleLogout, handleRegister }
 

@@ -1,3 +1,5 @@
+"use server"
+
 import { TLearningLanguage } from "@/components/pages/settings";
 import { TUserData } from "@/typings";
 import { cookies } from "next/headers";
@@ -33,5 +35,20 @@ const fetchSupportedLanguages = async () => {
     return data as TLearningLanguage[];
 }
 
-export { fetchSupportedLanguages, fetchUserData };
+const fetchUserQuizHistory = async () => {
+    const response = await fetch(`${API_URL}/user/quiz-history`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${cookies().get("token")?.value}`,
+        },
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch the user's quiz history");
+
+    const data = await response.json();
+
+    return data as string[]; // TODO: replace with TQuizHistory or something
+}
+
+export { fetchSupportedLanguages, fetchUserData, fetchUserQuizHistory };
 
