@@ -1,5 +1,5 @@
 import { fetchSupportedLanguages } from "@/lib/fetchers/fetchers";
-import { handleCreateQuiz } from "@/lib/handlers/handlers";
+import { TCreateQuizFormData, handleCreateQuiz } from "@/lib/handlers/handlers";
 import { PenIcon, Plus, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -50,7 +50,7 @@ export default function CreateQuiz({ setSelectedScreen }: TProps) {
     if (!validateForm()) return;
 
     try {
-      const body = {
+      const body: TCreateQuizFormData = {
         languageCode: language,
         question,
         answers: correctAnswers,

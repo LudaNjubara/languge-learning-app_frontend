@@ -65,7 +65,7 @@ const handleLanguageSettingChange = (formData: FormData, username: string | null
     });
 };
 
-type TCreateQuizFormData = {
+export type TCreateQuizFormData = {
     question: string;
     answers: string[];
     languageCode: string;

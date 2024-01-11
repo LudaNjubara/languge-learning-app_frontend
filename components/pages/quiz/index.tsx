@@ -35,7 +35,7 @@ export default function QuizWrapper({ userData }: TQuizWrapperProps) {
       </div>
 
       {!selectedScreen && (
-        <div className="flex flex-col md:flex-row gap-1 max-w-6xl mx-auto min-h-[450px] m-5 rounded-xl h-10 overflow-hidden hover:gap-10 transition-all duration-200">
+        <div className="flex flex-col md:flex-row gap-1 max-w-6xl mx-auto min-h-[450px] m-5 rounded-xl h-10 overflow-hidden hover:gap-4 transition-all duration-200">
           <button
             type="button"
             className="w-full md:w-1/2 h-full text-black font-medium text-2xl bg-neutral-200 hover:bg-green-600 hover:text-white focus:bg-green-600 focus:text-white outline-none transition-colors duration-300"

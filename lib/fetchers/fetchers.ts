@@ -1,7 +1,7 @@
 "use server"
 
 import { TLearningLanguage } from "@/components/pages/settings";
-import { TUserData } from "@/typings";
+import { TQuizData, TUserData } from "@/typings";
 import { cookies } from "next/headers";
 import { API_URL } from "../constants/consts";
 
@@ -50,5 +50,24 @@ const fetchUserQuizHistory = async () => {
     return data as string[]; // TODO: replace with TQuizHistory or something
 }
 
-export { fetchSupportedLanguages, fetchUserData, fetchUserQuizHistory };
+const fetchQuizData = async (languageCode: string, numOfQuestions: number = 1): Promise<TQuizData[]> => {
+    const searchParams = new URLSearchParams({
+        languageCode,
+        numOfQuestions: numOfQuestions.toString()
+    })
+
+    const res = await fetch(`${API_URL}/quiz/fetch?${searchParams}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${cookies().get("token")?.value}`,
+        }
+    })
+
+    if (!res.ok) throw new Error(res.statusText)
+
+    return res.json()
+}
+
+export { fetchQuizData, fetchSupportedLanguages, fetchUserData, fetchUserQuizHistory };
 

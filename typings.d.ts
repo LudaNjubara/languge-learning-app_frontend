@@ -111,13 +111,18 @@ type TQuizCategory = {
     insert_missing: boolean;
 };
 
-type TQuizData = {
-    [word: string]: {
-        quizQuestionCategory: keyof TQuizCategory;
-        quizQuestion: string | undefined;
-        quizAnswers: string[] | undefined;
-    };
+type TQuizAnswer = {
+    id: number;
+    answer: string;
 };
 
-export { TDictionaryApiResponse, TDictionaryWord, TGoogleTranlateTranslation, TGoogleTranslateApiResponse, TLanguage, TLanguageApiResponse, TLoginFormData, TQuizCategory, TQuizData, TRegisterFormData, TUserData };
+type TQuizData = {
+    id: number;
+    language: TLanguage;
+    question: string;
+    answers: TQuizAnswer[];
+    createdBy: TUserData
+};
+
+export { TDictionaryApiResponse, TDictionaryWord, TGoogleTranlateTranslation, TGoogleTranslateApiResponse, TLanguage, TLanguageApiResponse, TLoginFormData, TQuizAnswer, TQuizCategory, TQuizData, TRegisterFormData, TUserData };
 

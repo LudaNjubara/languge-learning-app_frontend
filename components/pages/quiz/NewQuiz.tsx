@@ -1,7 +1,5 @@
-import { fetchRandomWords } from "@/lib/fetchers/quizFetchers";
+import { fetchQuizData } from "@/lib/fetchers/fetchers";
 import { useSettingsStore } from "@/lib/store/SettingsStore";
-import { generateQuizData } from "@/lib/utils";
-import mockQuizData from "@/mock/quiz";
 import { TQuizCategory, TQuizData } from "@/typings";
 import { ChangeEvent, useEffect, useState } from "react";
 import NewQuizSetup from "./NewQuizSetup";
@@ -38,7 +36,7 @@ export default function NewQuiz() {
     isCategoriesValid: false,
   });
 
-  const [quizData, setQuizData] = useState<TQuizData | undefined>();
+  const [quizData, setQuizData] = useState<TQuizData[] | undefined>();
 
   const handleNumberOfQuestionsChange = (event: ChangeEvent<HTMLInputElement>) => {
     const eventValue = Number(event.target.value);
@@ -100,10 +98,7 @@ export default function NewQuiz() {
     const generateQuiz = async () => {
       try {
         setIsQuizLoading(true);
-        const randomWords = await fetchRandomWords(numberOfQuestions);
-        const quizData = await generateQuizData(randomWords, categories, learningLanguage.languageCode);
-
-        const templateData: TQuizData = mockQuizData;
+        const quizData = await fetchQuizData(learningLanguage.languageCode, numberOfQuestions);
 
         setQuizData(quizData);
       } catch (error) {
