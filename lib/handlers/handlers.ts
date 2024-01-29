@@ -1,5 +1,6 @@
 "use server"
 
+import { TQuizDataToSubmit } from "@/components/pages/quiz/TheQuiz"
 import { TLoginFormData, TRegisterFormData } from "@/typings"
 import { cookies } from "next/headers"
 import { API_URL } from "../constants/consts"
@@ -27,7 +28,10 @@ const handleLogin = async (formData: TLoginFormData) => {
 
     const response = await fetch(API_URL + "/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies().get("token")?.value}`,
+        },
         body: JSON.stringify(formData),
     })
 
@@ -44,7 +48,7 @@ const handleLogin = async (formData: TLoginFormData) => {
 
 const handleLogout = () => { }
 
-const handleLanguageSettingChange = (formData: FormData, username: string | null) => {
+const handleLanguageSettingChange = (formData: FormData, username?: string | null) => {
     if (!username) return;
 
     const languageCode = formData.get("languageCode") as string;
@@ -65,6 +69,17 @@ const handleLanguageSettingChange = (formData: FormData, username: string | null
     });
 };
 
+const handleSubmitFinishedQuiz = async (quizDataToSubmit: TQuizDataToSubmit[]) => {
+    return fetch(`${API_URL}/quiz/submit`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies().get("token")?.value}`,
+        },
+        body: JSON.stringify({ quizSubmitRequests: quizDataToSubmit }),
+    })
+}
+
 export type TCreateQuizFormData = {
     question: string;
     answers: string[];
@@ -83,5 +98,5 @@ const handleCreateQuiz = async (formData: TCreateQuizFormData) => {
 }
 
 
-export { handleCreateQuiz, handleLanguageSettingChange, handleLogin, handleLogout, handleRegister }
+export { handleCreateQuiz, handleLanguageSettingChange, handleLogin, handleLogout, handleRegister, handleSubmitFinishedQuiz }
 

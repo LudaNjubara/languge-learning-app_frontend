@@ -1,9 +1,11 @@
 import { fetchQuizData } from "@/lib/fetchers/fetchers";
-import { useSettingsStore } from "@/lib/store/SettingsStore";
+import { useGlobalStore } from "@/lib/store/SettingsStore";
 import { TQuizCategory, TQuizData } from "@/typings";
 import { ChangeEvent, useEffect, useState } from "react";
 import NewQuizSetup from "./NewQuizSetup";
 import TheQuiz from "./TheQuiz";
+
+export type TCurrentQuizState = "setup" | "loading" | "in-progress" | "finished";
 
 const validateForm = (numberOfQuestions: number, categories: TQuizCategory) => {
   let isNumberOfQuestionsValid = false;
@@ -21,10 +23,9 @@ const validateForm = (numberOfQuestions: number, categories: TQuizCategory) => {
 
 export default function NewQuiz() {
   // zustand state
-  const learningLanguage = useSettingsStore((state) => state.learningLanguage);
+  const userData = useGlobalStore((state) => state.currentUser);
 
-  const [showTheQuiz, setShowTheQuiz] = useState<boolean>(false);
-  const [isQuizLoading, setIsQuizLoading] = useState<boolean>(false);
+  const [currentQuizState, setCurrentQuizState] = useState<TCurrentQuizState>("setup");
   const [numberOfQuestions, setNumberOfQuestions] = useState<number>(3);
   const [categories, setCategories] = useState<TQuizCategory>({
     translation: true,
@@ -93,25 +94,23 @@ export default function NewQuiz() {
   };
 
   useEffect(() => {
-    if (!showTheQuiz || !learningLanguage) return;
+    if (currentQuizState !== "loading" || !userData || !userData?.selectedLanguage) return;
 
     const generateQuiz = async () => {
       try {
-        setIsQuizLoading(true);
-        const quizData = await fetchQuizData(learningLanguage.languageCode, numberOfQuestions);
+        const quizData = await fetchQuizData(userData.selectedLanguage!.languageCode, numberOfQuestions);
 
         setQuizData(quizData);
+        setCurrentQuizState("in-progress");
       } catch (error) {
         console.log(error);
-      } finally {
-        setIsQuizLoading(false);
+
+        setCurrentQuizState("setup");
       }
     };
 
     generateQuiz();
-  }, [showTheQuiz, categories, numberOfQuestions, learningLanguage]);
-
-  console.log("quizData", quizData);
+  }, [currentQuizState, userData?.selectedLanguage]);
 
   return (
     <div>
@@ -125,18 +124,24 @@ export default function NewQuiz() {
       </div>
 
       <div>
-        {showTheQuiz ? (
-          <TheQuiz quizData={quizData} isQuizLoading={isQuizLoading} />
-        ) : (
+        {currentQuizState === "setup" && (
           <NewQuizSetup
             numberOfQuestions={numberOfQuestions}
             handleNumberOfQuestionsChange={handleNumberOfQuestionsChange}
             categories={categories}
             handleCategoriesChange={handleCategoriesChange}
-            setShowTheQuiz={setShowTheQuiz}
+            setCurrentQuizState={setCurrentQuizState}
             formErrors={formErrors}
           />
         )}
+
+        {currentQuizState === "loading" && <div>Loading...</div>}
+
+        {currentQuizState === "in-progress" && (
+          <TheQuiz quizData={quizData} setCurrentQuizState={setCurrentQuizState} />
+        )}
+
+        {currentQuizState === "finished" && <div>Finished</div>}
       </div>
     </div>
   );

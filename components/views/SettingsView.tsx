@@ -1,19 +1,17 @@
-import { fetchSupportedLanguages, fetchUserData } from "@/lib/fetchers/fetchers";
-import { TUserData } from "@/typings";
-import SettingsForm, { TLearningLanguage } from "../pages/settings";
+import { fetchSupportedLanguages } from "@/lib/fetchers/fetchers";
+import { TLearningLanguage } from "@/typings";
+import SettingsForm from "../pages/settings";
 
 type TSettingsData = {
   learningLanguages: TLearningLanguage[];
 };
 
 export default async function SettingsView() {
-  let userData: TUserData = {};
   let learningLanguages: TLearningLanguage[] = [];
 
   let settingsData: TSettingsData = { learningLanguages: [] };
 
   try {
-    userData = await fetchUserData();
     learningLanguages = await fetchSupportedLanguages();
     settingsData = {
       learningLanguages,
@@ -35,7 +33,7 @@ export default async function SettingsView() {
       </p>
 
       <main>
-        <SettingsForm data={settingsData} userData={userData} />
+        <SettingsForm data={settingsData} />
       </main>
     </>
   );

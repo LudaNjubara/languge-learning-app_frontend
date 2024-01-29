@@ -1,9 +1,9 @@
 import { fetchSupportedLanguages } from "@/lib/fetchers/fetchers";
 import { TCreateQuizFormData, handleCreateQuiz } from "@/lib/handlers/handlers";
+import { TLearningLanguage } from "@/typings";
 import { PenIcon, Plus, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { TLearningLanguage } from "../settings";
 
 type TProps = {
   setSelectedScreen: React.Dispatch<

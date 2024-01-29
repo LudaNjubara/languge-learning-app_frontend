@@ -1,5 +1,6 @@
 import { TQuizCategory } from "@/typings";
 import { ChangeEvent } from "react";
+import { TCurrentQuizState } from "./NewQuiz";
 
 type TNumberOfQuestionsFormFieldProps = {
   numberOfQuestions: number;
@@ -151,7 +152,7 @@ type TNewQuizSetupProps = {
   handleNumberOfQuestionsChange: (e: ChangeEvent<HTMLInputElement>) => void;
   categories: TQuizCategory;
   handleCategoriesChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  setShowTheQuiz: (value: boolean) => void;
+  setCurrentQuizState: (string: TCurrentQuizState) => void;
   formErrors: {
     isNumberOfQuestionsValid: boolean;
     isCategoriesValid: boolean;
@@ -163,7 +164,7 @@ export default function NewQuizSetup({
   handleNumberOfQuestionsChange,
   categories,
   handleCategoriesChange,
-  setShowTheQuiz,
+  setCurrentQuizState,
   formErrors,
 }: TNewQuizSetupProps) {
   return (
@@ -191,7 +192,7 @@ export default function NewQuizSetup({
         <button
           type="button"
           className="w-28 h-28 lg:w-28 lg:h-28 lg:mt-0 rounded-full outline-8 outline-green-600/50 bg-green-600 text-white font-medium hover:bg-green-500 focus:bg-green-500 transition-colors duration-300"
-          onClick={() => setShowTheQuiz(true)}
+          onClick={() => setCurrentQuizState("loading")}
         >
           Start Quiz
         </button>

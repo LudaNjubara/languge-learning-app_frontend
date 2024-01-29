@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { SettingsStateSlice, createSettingsStateSlice } from "./slices/settingsSlice";
+import { IGlobalStateSlice, createGlobalStateSlice } from "./slices/settingsSlice";
 
-interface DashboardState extends SettingsStateSlice { }
+interface DashboardState extends IGlobalStateSlice { }
 
-export const useSettingsStore = create<DashboardState>()(
+export const useGlobalStore = create<DashboardState>()(
     devtools(
         (...a) => ({
-            ...createSettingsStateSlice(...a),
+            ...createGlobalStateSlice(...a),
         }),
     )
 )

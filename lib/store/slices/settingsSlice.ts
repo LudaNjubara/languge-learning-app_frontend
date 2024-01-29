@@ -1,21 +1,22 @@
-import { TLearningLanguage } from "@/components/pages/settings"
+
+import { TLearningLanguage, TUserData } from "@/typings"
 import { StateCreator } from "zustand"
 
-export interface SettingsStateSlice {
-    username: string | null
+export interface IGlobalStateSlice {
+    currentUser: TUserData | null
     learningLanguage: TLearningLanguage | null
     setLearningLanguage: (language?: TLearningLanguage) => void
-    setUsername: (username?: string) => void
+    setCurrentUser: (user: TUserData) => void
 }
 
-export const createSettingsStateSlice: StateCreator<
-    SettingsStateSlice,
+export const createGlobalStateSlice: StateCreator<
+    IGlobalStateSlice,
     [],
     [],
-    SettingsStateSlice
+    IGlobalStateSlice
 > = (set) => ({
-    username: null,
+    currentUser: null,
     learningLanguage: null,
     setLearningLanguage: (learningLanguage?: TLearningLanguage) => set({ learningLanguage }),
-    setUsername: (username?: string) => set({ username }),
+    setCurrentUser: (user) => set({ currentUser: user }),
 })

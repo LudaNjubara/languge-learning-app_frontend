@@ -1,27 +1,35 @@
-import { fetchUserQuizHistory } from "@/lib/fetchers/fetchers";
-import { useEffect, useState } from "react";
+import { useGlobalStore } from "@/lib/store/SettingsStore";
+import { TQuizData } from "@/typings";
+
+type THistoryCardProps = {
+  quiz: TQuizData;
+};
+
+const HistoryCard = ({ quiz }: THistoryCardProps) => {
+  return (
+    <div className="bg-neutral-100/60 rounded-md p-3 mb-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="flex items-center">
+        <div className="w-2 h-2 rounded-full bg-orange-600 mr-2"></div>
+        <p className="text-lg font-medium">By {quiz.createdByUsername}</p>
+      </div>
+
+      <div className="flex items-center">
+        <p className="text-lg font-medium">Language: {quiz.language.languageName}</p>
+      </div>
+
+      <div className="flex items-center">
+        <p className="text-lg font-medium">Question: {quiz.question}</p>
+      </div>
+
+      <div className="flex items-center">
+        <p className="text-lg font-medium">User answer: {quiz?.userAnswer}</p>
+      </div>
+    </div>
+  );
+};
 
 export default function QuizHistory() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const [quizzes, setQuizzes] = useState<string[]>([]); // TODO: replace with TQuizHistory or something
-
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-
-    fetchUserQuizHistory()
-      .then((data) => {
-        setQuizzes(data);
-      })
-      .catch((error) => {
-        if (error instanceof Error) setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const userData = useGlobalStore((state) => state.currentUser);
 
   return (
     <div>
@@ -33,13 +41,9 @@ export default function QuizHistory() {
       </div>
 
       <div>
-        {loading && <div>Loading...</div>}
-
-        {error && <div>Error: {error}</div>}
-
         <>
-          {quizzes.map((quiz) => (
-            <div key={quiz}>{quiz}</div>
+          {userData?.takenQuizzes.map((quiz, index) => (
+            <HistoryCard key={index} quiz={quiz} />
           ))}
         </>
       </div>

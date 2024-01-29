@@ -1,23 +1,15 @@
 "use client";
 
-import { useSettingsStore } from "@/lib/store/SettingsStore";
-import { TUserData } from "@/typings";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import CreateQuiz from "./CreateQuiz";
 import NewQuiz from "./NewQuiz";
 import QuizHistory from "./QuizHistory";
 
-type TQuizWrapperProps = {
-  userData: TUserData;
-};
+type TCurrentScreenState = "new_quiz" | "create_quiz" | "quiz_history" | undefined;
 
-export default function QuizWrapper({ userData }: TQuizWrapperProps) {
-  const setLearningLanguage = useSettingsStore((state) => state.setLearningLanguage);
-  setLearningLanguage(userData.selectedLanguage);
-  const [selectedScreen, setSelectedScreen] = useState<
-    "new_quiz" | "create_quiz" | "quiz_history" | undefined
-  >();
+export default function QuizWrapper() {
+  const [selectedScreen, setSelectedScreen] = useState<TCurrentScreenState>();
 
   return (
     <div className="mt-12 mx-auto w-full max-w-6xl">

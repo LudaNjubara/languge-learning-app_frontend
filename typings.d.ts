@@ -1,9 +1,18 @@
 import { TLearningLanguage } from "./components/pages/settings";
 
+type TAuthority = "ROLE_USER" | "ROLE_ADMIN";
+
 type TUserData = {
     username?: string;
+    authorities: TAuthority[];
     selectedLanguage?: TLearningLanguage;
+    takenQuizzes: TQuizData[];
 }
+
+type TLearningLanguage = {
+    languageCode: string;
+    languageName: string;
+};
 
 type TRegisterFormData = {
     username: string;
@@ -93,17 +102,6 @@ type TDictionaryApiResponse = {
     results: TDictionaryWord[]
 };
 
-// Google Translate API
-type TGoogleTranlateTranslation = {
-    translatedText: string
-}
-
-type TGoogleTranslateApiResponse = {
-    data: {
-        translations: TGoogleTranlateTranslation[]
-    }
-}
-
 // Quiz
 type TQuizCategory = {
     translation: boolean;
@@ -118,11 +116,12 @@ type TQuizAnswer = {
 
 type TQuizData = {
     id: number;
-    language: TLanguage;
+    language: TLearningLanguage;
     question: string;
     answers: TQuizAnswer[];
-    createdBy: TUserData
+    createdByUsername: string;
+    userAnswer?: string;
 };
 
-export { TDictionaryApiResponse, TDictionaryWord, TGoogleTranlateTranslation, TGoogleTranslateApiResponse, TLanguage, TLanguageApiResponse, TLoginFormData, TQuizAnswer, TQuizCategory, TQuizData, TRegisterFormData, TUserData };
+export { TAuthority, TDictionaryApiResponse, TDictionaryWord, TLanguage, TLanguageApiResponse, TLearningLanguage, TLoginFormData, TQuizAnswer, TQuizCategory, TQuizData, TRegisterFormData, TUserData };
 

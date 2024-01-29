@@ -1,7 +1,7 @@
 "use server"
 
-import { TLearningLanguage } from "@/components/pages/settings";
-import { TQuizData, TUserData } from "@/typings";
+
+import { TLearningLanguage, TQuizData, TUserData } from "@/typings";
 import { cookies } from "next/headers";
 import { API_URL } from "../constants/consts";
 

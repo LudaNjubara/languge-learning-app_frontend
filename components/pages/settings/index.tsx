@@ -1,14 +1,9 @@
 "use client";
 
 import { handleLanguageSettingChange } from "@/lib/handlers/handlers";
-import { useSettingsStore } from "@/lib/store/SettingsStore";
-import { TUserData } from "@/typings";
+import { useGlobalStore } from "@/lib/store/SettingsStore";
+import { TLearningLanguage } from "@/typings";
 import { useMemo } from "react";
-
-export type TLearningLanguage = {
-  languageCode: string;
-  languageName: string;
-};
 
 type TSettingsItem = {
   title: string;
@@ -21,7 +16,7 @@ type TLearningLanguageSettingProps = {
 };
 
 const LearningLanguageSetting = ({ languages }: TLearningLanguageSettingProps) => {
-  const learningLanguage = useSettingsStore((state) => state.learningLanguage);
+  const learningLanguage = useGlobalStore((state) => state.currentUser)?.selectedLanguage;
 
   return (
     <select
@@ -43,14 +38,10 @@ type TSettingsFormProps = {
   data: {
     learningLanguages: TLearningLanguage[];
   };
-  userData: TUserData;
 };
 
-export default function SettingsForm({ data, userData }: TSettingsFormProps) {
-  useSettingsStore((state) => state.setUsername)(userData?.username);
-  useSettingsStore((state) => state.setLearningLanguage)(userData?.selectedLanguage);
-
-  const username = useSettingsStore((state) => state.username);
+export default function SettingsForm({ data }: TSettingsFormProps) {
+  const userData = useGlobalStore((state) => state.currentUser);
 
   const settingsItems: TSettingsItem[] = useMemo(
     () => [
@@ -67,7 +58,7 @@ export default function SettingsForm({ data, userData }: TSettingsFormProps) {
   return (
     <div className="flex flex-col items-center justify-center">
       <form
-        action={(e) => handleLanguageSettingChange(e, username)}
+        action={(e) => handleLanguageSettingChange(e, userData?.username)}
         className="flex flex-col gap-4 max-w-5xl mx-auto bg-neutral-950 rounded-lg p-8 mt-6"
       >
         {settingsItems.map((item) => (

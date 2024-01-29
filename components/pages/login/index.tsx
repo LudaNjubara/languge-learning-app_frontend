@@ -1,6 +1,7 @@
 "use client";
 
 import { handleLogin } from "@/lib/handlers/handlers";
+import { useGlobalStore } from "@/lib/store/SettingsStore";
 import { TLoginFormData } from "@/typings";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,6 +26,9 @@ type TLoginFormErrors = {
 };
 
 export default function LoginForm() {
+  // zustant state and actions
+  const setCurrentUser = useGlobalStore((state) => state.setCurrentUser);
+
   const router = useRouter();
   const [formData, setFormData] = useState<TLoginFormData>({
     username: "",
@@ -53,6 +57,8 @@ export default function LoginForm() {
     try {
       setIsLoading(true);
       const userData = await handleLogin(formData);
+
+      setCurrentUser(userData);
       router.push("/quiz");
     } catch (error) {
       console.log(error);
