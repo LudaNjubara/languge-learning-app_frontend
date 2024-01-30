@@ -93,7 +93,7 @@ export default function CreateQuiz({ setSelectedScreen }: TProps) {
   return (
     <div>
       <div className="py-2">
-        <h2 className="relative text-3xl pl-3 font-thin before:absolute before:h-full before:rounded-sm before:w-1 before:bg-yellow-600 before:left-0 before:top-0">
+        <h2 className="relative text-3xl pl-3 font-thin before:absolute before:h-full before:rounded-sm before:w-1 before:bg-yellow-500 before:left-0 before:top-0">
           Create Quiz
         </h2>
         <p className="text-lg mt-1 text-neutral-400/80 font-light">
@@ -185,7 +185,7 @@ export default function CreateQuiz({ setSelectedScreen }: TProps) {
         <button
           type="submit"
           disabled={!language || !question || !correctAnswers.length}
-          className="block w-full px-4 py-2 bg-yellow-600 hover:bg-yellow-500 text-white rounded transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="block w-full px-4 py-2 bg-yellow-500 hover:bg-yellow-500 text-white rounded transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Create Quiz
         </button>

@@ -46,7 +46,9 @@ const handleLogin = async (formData: TLoginFormData) => {
     }
 }
 
-const handleLogout = () => { }
+const handleLogout = async () => {
+    cookies().delete("token");
+}
 
 const handleLanguageSettingChange = (formData: FormData, username?: string | null) => {
     if (!username) return;

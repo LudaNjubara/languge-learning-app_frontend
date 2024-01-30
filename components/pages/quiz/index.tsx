@@ -38,7 +38,7 @@ export default function QuizWrapper() {
 
           <button
             type="button"
-            className="w-full md:w-1/2 h-full text-black font-medium text-2xl bg-neutral-200 hover:bg-yellow-600 hover:text-white focus:bg-yellow-600 focus:text-white outline-none transition-colors duration-300"
+            className="w-full md:w-1/2 h-full text-black font-medium text-2xl bg-neutral-200 hover:bg-yellow-500 hover:text-white focus:bg-yellow-500 focus:text-white outline-none transition-colors duration-300"
             onClick={() => setSelectedScreen("create_quiz")}
           >
             Create quiz

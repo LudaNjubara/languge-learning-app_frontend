@@ -58,7 +58,17 @@ export default function SettingsForm({ data }: TSettingsFormProps) {
   return (
     <div className="flex flex-col items-center justify-center">
       <form
-        action={(e) => handleLanguageSettingChange(e, userData?.username)}
+        action={(e) => {
+          useGlobalStore.setState({
+            currentUser: {
+              ...userData!,
+              selectedLanguage: data.learningLanguages.find(
+                (language) => language.languageCode === (e.get("languageCode") as string)
+              ),
+            },
+          });
+          handleLanguageSettingChange(e, userData?.username);
+        }}
         className="flex flex-col gap-4 max-w-5xl mx-auto bg-neutral-950 rounded-lg p-8 mt-6"
       >
         {settingsItems.map((item) => (
